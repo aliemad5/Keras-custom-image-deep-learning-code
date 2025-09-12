@@ -1,5 +1,6 @@
-"""
+
 Train a custom CNN classifier with Keras/TensorFlow.
+
 Dataset: CIFAR-100 
 
 Author: Ali Emad Elsamanoudy
@@ -7,7 +8,7 @@ Author: Ali Emad Elsamanoudy
 Date: September 2025
 
 Email:ali.elsamanoudy623@gmail.com
-"""
+
 
 ## Imports
 ```python
