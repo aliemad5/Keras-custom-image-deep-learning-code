@@ -12,7 +12,7 @@ Date: September 2025
 Email:ali.elsamanoudy623@gmail.com
 
 ## License
-
+https://github.com/aliemad5/Keras-custom-image-deep-learning-code/blob/main/LICENSE 
 
 ## Imports
 ```python
