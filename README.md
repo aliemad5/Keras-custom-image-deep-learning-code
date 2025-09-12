@@ -13,8 +13,7 @@ Email:ali.elsamanoudy623@gmail.com
 
 ## License
 Copyright (c) 2025 Ali Emad Elsamanoudy
-
-MIT License — CREDIT REQUIRED. DO NOT IGNORE.
+[MIT License](./LICENSE) — **CREDIT REQUIRED. DO NOT IGNORE.**
 
 ## Imports
 ```python
