@@ -1,34 +1,34 @@
-# Keras-custom-image-deep-learning-code
-## Imports
-import cv2
+"""
+Train a custom CNN classifier with Keras/TensorFlow.
+Dataset: CIFAR-100 
+Author: Ali Emad Elsamanoudy
+Date: September 2025
+Email:ali.elsamanoudy623@gmail.com
+"""
+
 import tensorflow as tf
 from keras.layers import Dense, Flatten, MaxPooling2D, Conv2D
 from keras.models import Sequential
 from keras.losses import SparseCategoricalCrossentropy
-from keras.preprocessing import image
-import pandas as pd
 import numpy as np
 
-## Load Data
-```python
-# ylabels.csv contains numeric labels (0 → 299)
-# imgpaths.csv contains image file paths
-y_train = pd.read_csv("ylabels.csv")        # shape: (9000, 1)
-x_images = pd.read_csv("imgpaths.csv")      # shape: (9000, 1)
+# ============================
+# Load Dataset (CIFAR-100)
+# ============================
+print("[INFO] Loading CIFAR-100 dataset...")
+(x_train, y_train), _ = tf.keras.datasets.cifar100.load_data(label_mode="fine")
 
-x_train = []
-for img_path in x_images["path"]:
-    img = image.load_img(img_path, target_size=(512, 512))
-    img = image.img_to_array(img)
-    img = img / 255.0
-    x_train.append(img)
-```
-# Convert to numpy arrays
-```python
-x_train = np.array(x_train)
-y_train = np.array(y_train).squeeze()  
-```
-## Build Model
+# Normalize & resize
+x_train = x_train.astype("float32") / 255.0
+x_train = tf.image.resize(x_train, [512, 512])
+y_train = y_train.squeeze()
+
+num_classes = 100
+print(f"[INFO] CIFAR-100 loaded: {x_train.shape[0]} images, {num_classes} classes")
+
+# ============================
+# Build Model
+# ============================
 model = Sequential([
     Conv2D(32, (5, 5), padding="same", activation="relu", input_shape=(512, 512, 3)),
     MaxPooling2D(pool_size=(2, 2)),
@@ -38,12 +38,32 @@ model = Sequential([
 
     Flatten(),
     Dense(128, activation="relu"),
-    Dense(300, activation="softmax")  # 300 classes
+    Dense(num_classes, activation="softmax")
 ])
 
 model.compile(optimizer="adam",
               loss=SparseCategoricalCrossentropy(),
               metrics=["accuracy"])
+
+print("[INFO] Model compiled.")
+
+# ============================
+# Train
+# ============================
+print("[INFO] Starting training...")
+model.fit(
+    x_train, y_train,
+    batch_size=64,
+    epochs=20,
+    validation_split=0.2
+)
+
+# ============================
+# Save Model
+# ============================
+model.save("mykeras.h5")
+print("[INFO] Model saved as mykeras.h5")
+
 
 ## Train Model
 model.fit(x_train, y_train, batch_size=64, epochs=20, validation_split=0.2)
