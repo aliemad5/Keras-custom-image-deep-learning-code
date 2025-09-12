@@ -16,10 +16,10 @@ Copyright (c) 2025 Ali Emad Elsamanoudy
 [MIT License](./LICENSE) — **CREDIT REQUIRED. DO NOT IGNORE.**
 
 ## Requirements
-All dependencies for this project are listed in [Requirements.txt](Requirements.txt).
+All dependencies for this project are listed in [Requirements0.txt](Requirements0.txt).
 To install them, run the following command in your terminal:
 ```bash
-pip install -r Requirements.txt
+pip install -r Requirements0.txt
 ```
 ## Imports
 ```python
