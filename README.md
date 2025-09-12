@@ -1,8 +1,11 @@
 """
 Train a custom CNN classifier with Keras/TensorFlow.
 Dataset: CIFAR-100 
+
 Author: Ali Emad Elsamanoudy
+
 Date: September 2025
+
 Email:ali.elsamanoudy623@gmail.com
 """
 
@@ -14,9 +17,9 @@ from keras.models import Sequential
 from keras.losses import SparseCategoricalCrossentropy
 import numpy as np
 ```
-# ============================
+
 # Load Dataset (CIFAR-100)
-# ============================
+
 ```python
 print("[INFO] Loading CIFAR-100 dataset...")
 (x_train, y_train), _ = tf.keras.datasets.cifar100.load_data(label_mode="fine")
@@ -30,9 +33,9 @@ y_train = y_train.squeeze()
 num_classes = 100
 print(f"[INFO] CIFAR-100 loaded: {x_train.shape[0]} images, {num_classes} classes")
 ```
-# ============================
-# Build Model
-# ============================
+
+## Build Model
+
 ```python
 model = Sequential([
     Conv2D(32, (5, 5), padding="same", activation="relu", input_shape=(512, 512, 3)),
@@ -52,9 +55,9 @@ model.compile(optimizer="adam",
 
 print("[INFO] Model compiled.")
 ```
-# ============================
+
 # Train
-# ============================
+
 ```python
 print("[INFO] Starting training...")
 model.fit(
@@ -64,17 +67,10 @@ model.fit(
     validation_split=0.2
 )
 ```
-# ============================
+
 # Save Model
-# ============================
+
 ```python
 model.save("mykeras.h5")
 print("[INFO] Model saved as mykeras.h5")
 ```
-
-## Train Model
-model.fit(x_train, y_train, batch_size=64, epochs=20, validation_split=0.2)
-
-## Save Model
-model.save("mykeras.h5")
-
