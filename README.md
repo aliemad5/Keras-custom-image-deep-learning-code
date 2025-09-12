@@ -15,6 +15,12 @@ Email:ali.elsamanoudy623@gmail.com
 Copyright (c) 2025 Ali Emad Elsamanoudy
 [MIT License](./LICENSE) — **CREDIT REQUIRED. DO NOT IGNORE.**
 
+## Requirements
+All dependencies for this project are listed in [Requirements.txt](Requirements.txt).
+To install them, run the following command in your terminal:
+```bash
+pip install -r Requirements.txt
+```
 ## Imports
 ```python
 import tensorflow as tf
