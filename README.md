@@ -1,6 +1,8 @@
 
 Train a custom CNN classifier with Keras/TensorFlow.
 
+Used for YOLO+Keras object detection model:https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md
+
 Dataset: CIFAR-100 
 
 Author: Ali Emad Elsamanoudy
@@ -8,6 +10,8 @@ Author: Ali Emad Elsamanoudy
 Date: September 2025
 
 Email:ali.elsamanoudy623@gmail.com
+
+## License
 
 
 ## Imports
