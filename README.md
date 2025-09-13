@@ -7,8 +7,6 @@ Dataset: CIFAR-100
 
 Author: Ali Emad Elsamanoudy
 
-Date: September 2025
-
 Email:ali.elsamanoudy623@gmail.com
 
 ## License
