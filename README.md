@@ -1,51 +1,59 @@
 
-Train a custom CNN classifier with Keras/TensorFlow.
+# Train a Custom CNN Classifier with Keras/TensorFlow
 
-Used for YOLO+Keras object detection model:https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md
+Used for [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md)
 
-Dataset: CIFAR-100 
+**Dataset:** Caltech-101  
+**Author:** Ali Emad Elsamanoudy  
+**Email:** ali.elsamanoudy623@gmail.com  
 
-Author: Ali Emad Elsamanoudy
-
-Email:ali.elsamanoudy623@gmail.com
+---
 
 ## License
-Copyright (c) 2025 Ali Emad Elsamanoudy
-[MIT License](./LICENSE) — **CREDIT REQUIRED. DO NOT IGNORE.**
+Copyright (c) 2025 Ali Emad Elsamanoudy  
+[MIT License](./LICENSE) — **Credit REQUIRED. Do NOT ignore.**
+
+---
 
 ## Requirements
-All dependencies for this project are listed in [Requirements0.txt](Requirements0.txt).
+All dependencies for this project are listed in [requirements.txt](requirements.txt).  
 To install them, run the following command in your terminal:
+
 ```bash
-pip install -r Requirements0.txt
+pip install -r requirements.txt
 ```
 ## Imports
 ```python
 import tensorflow as tf
+import tensorflow_datasets as tfds
+import numpy as np
 from keras.layers import Dense, Flatten, MaxPooling2D, Conv2D
 from keras.models import Sequential
 from keras.losses import SparseCategoricalCrossentropy
-import numpy as np
 ```
 
-# Load Dataset (CIFAR-100)
+## Load Dataset (Caltech-101)
 
 ```python
-print("[INFO] Loading CIFAR-100 dataset...")
-(x_train, y_train), _ = tf.keras.datasets.cifar100.load_data(label_mode="fine")
+dataset, info = tfds.load("caltech101", with_info=True, as_supervised=True)
+train_ds = dataset["train"]
+
 ```
-# Normalize & resize
+## Normalize & resize
 ```python
-x_train = x_train.astype("float32") / 255.0
-x_train = tf.image.resize(x_train, [512, 512])
-y_train = y_train.squeeze()
+x_train, y_train = [], []
 
-num_classes = 100
-print(f"[INFO] CIFAR-100 loaded: {x_train.shape[0]} images, {num_classes} classes")
+for img, label in tfds.as_numpy(train_ds):
+    img = tf.image.resize(img, [512, 512]) / 255.0
+    x_train.append(img)
+    y_train.append(label)
+
+x_train = np.array(x_train, dtype="float32")
+y_train = np.array(y_train, dtype="int32")
+
+num_classes = len(np.unique(y_train))
 ```
-
 ## Build Model
-
 ```python
 model = Sequential([
     Conv2D(32, (5, 5), padding="same", activation="relu", input_shape=(512, 512, 3)),
@@ -63,13 +71,12 @@ model.compile(optimizer="adam",
               loss=SparseCategoricalCrossentropy(),
               metrics=["accuracy"])
 
-print("[INFO] Model compiled.")
 ```
 
-# Train
+## Train
 
 ```python
-print("[INFO] Starting training...")
+
 model.fit(
     x_train, y_train,
     batch_size=64,
@@ -78,7 +85,7 @@ model.fit(
 )
 ```
 
-# Save Model
+## Save Model
 
 ```python
 model.save("mykeras.h5")
