@@ -35,23 +35,38 @@ from keras.losses import SparseCategoricalCrossentropy
 ## Load Dataset (Caltech-101)
 
 ```python
+
 dataset, info = tfds.load("caltech101", with_info=True, as_supervised=True)
 train_ds = dataset["train"]
 
+
 ```
-## Normalize & resize
+## Normalize The Data
 ```python
-x_train, y_train = [], []
+num_classes = info.features["label"].num_classes
+print(f"[INFO] Dataset ready: {num_classes} classes")
 
-for img, label in tfds.as_numpy(train_ds):
-    img = tf.image.resize(img, [512, 512]) / 255.0
-    x_train.append(img)
-    y_train.append(label)
 
-x_train = np.array(x_train, dtype="float32")
-y_train = np.array(y_train, dtype="int32")
+def batch_generator(ds, batch_size=128):
+    x_batch, y_batch = [], []
+    for img, label in tfds.as_numpy(ds):
+        img = tf.image.resize(img, [512, 512]).numpy() / 255.0
+        x_batch.append(img)
+        y_batch.append(label)
 
-num_classes = len(np.unique(y_train))
+        # Once batch is full → yield it
+        if len(x_batch) == batch_size:
+            yield np.array(x_batch, dtype="float32"), np.array(y_batch, dtype="int32")
+            x_batch, y_batch = [], []
+
+    
+    if x_batch:
+        yield np.array(x_batch, dtype="float32"), np.array(y_batch, dtype="int32")
+
+
+
+
+
 ```
 ## Build Model
 ```python
@@ -77,11 +92,16 @@ model.compile(optimizer="adam",
 
 ```python
 
-model.fit(
-    x_train, y_train,
-    batch_size=64,
-    epochs=20,
-    validation_split=0.2
+
+
+
+batch_size = 128
+
+model.fit(batch_generator(train_ds, batch_size),
+          epochs=20)
+
+)
+
 )
 ```
 
