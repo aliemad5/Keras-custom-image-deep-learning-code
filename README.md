@@ -45,7 +45,7 @@ train_ds = dataset["train"]
 ## Normalize The Data
 ```python
 num_classes = info.features["label"].num_classes
-print(f"[INFO] Dataset ready: {num_classes} classes")
+
 
 
 def batch_generator(ds, batch_size=128):
