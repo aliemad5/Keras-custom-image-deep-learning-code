@@ -9,6 +9,7 @@ Used for [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-
 
 ---
 
+
 ## License
 Copyright (c) 2025 Ali Emad Elsamanoudy  
 [MIT License](./LICENSE) — **Credit REQUIRED. Do NOT ignore.**
@@ -54,7 +55,7 @@ def batch_generator(ds, batch_size=128):
         x_batch.append(img)
         y_batch.append(label)
 
-        # Once batch is full → yield it
+        
         if len(x_batch) == batch_size:
             yield np.array(x_batch, dtype="float32"), np.array(y_batch, dtype="int32")
             x_batch, y_batch = [], []
@@ -91,8 +92,6 @@ model.compile(optimizer="adam",
 ## Train
 
 ```python
-
-
 
 
 batch_size = 128
