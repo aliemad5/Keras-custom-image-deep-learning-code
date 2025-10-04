@@ -1,9 +1,11 @@
 
+
+
 # Train a Custom CNN Classifier with Keras/TensorFlow
 
 Used for [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md)
 
-**Dataset:** Caltech-101  
+**Dataset:** Open Images V4 300k
 **Author:** Ali Emad Elsamanoudy  
 **Email:** ali.elsamanoudy623@gmail.com  
 
@@ -25,6 +27,8 @@ pip install -r Requirements.txt
 ```
 ## Imports
 ```python
+from google.colab import drive
+drive.mount('/content/drive')
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import numpy as np
@@ -33,11 +37,11 @@ from keras.models import Sequential
 from keras.losses import SparseCategoricalCrossentropy
 ```
 
-## Load Dataset (Caltech-101)
+## Load Dataset (Open Images V4)
 
 ```python
 
-dataset, info = tfds.load("caltech101", with_info=True, as_supervised=True)
+dataset, info = tfds.load("open_images_v4/300k", with_info=True, as_supervised=True)
 train_ds = dataset["train"]
 
 
@@ -48,10 +52,10 @@ num_classes = info.features["label"].num_classes
 
 
 
-def batch_generator(ds, batch_size=128):
+def batch_generator(ds, batch_size=64):
     x_batch, y_batch = [], []
     for img, label in tfds.as_numpy(ds):
-        img = tf.image.resize(img, [512, 512]).numpy() / 255.0
+        img = tf.image.resize(img, [300,300]).numpy() / 255.0
         x_batch.append(img)
         y_batch.append(label)
 
@@ -72,7 +76,7 @@ def batch_generator(ds, batch_size=128):
 ## Build Model
 ```python
 model = Sequential([
-    Conv2D(32, (5, 5), padding="same", activation="relu", input_shape=(512, 512, 3)),
+    Conv2D(32, (5, 5), padding="same", activation="relu", input_shape=(300, 300, 3)),
     MaxPooling2D(pool_size=(2, 2)),
 
     Conv2D(64, (4, 4), padding="same", activation="relu"),
@@ -94,19 +98,19 @@ model.compile(optimizer="adam",
 ```python
 
 
-batch_size = 128
+batch_size = 64
 
 model.fit(batch_generator(train_ds, batch_size),
-          epochs=20)
+          epochs=15)
 
-)
 
-)
+
+
 ```
 
 ## Save Model
 
 ```python
-model.save("mykeras.h5")
+model.save("/content/drive/Mydrive/mykeras.h5")
 print("[INFO] Model saved as mykeras.h5")
 ```
