@@ -25,7 +25,7 @@ Copyright (c) 2025 Ali Emad Elsamanoudy
 
 
 
--Have enough storage in Google Drive (at least 2–3 GB free).
+- Have enough storage in Google Drive (at least 2–3 GB free).
 
 
 ## Instructions
