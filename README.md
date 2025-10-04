@@ -6,6 +6,7 @@
 Used for [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md)
 
 **Dataset:** Open Images V4 300k
+
 **Author:** Ali Emad Elsamanoudy  
 **Email:** ali.elsamanoudy623@gmail.com  
 
@@ -20,10 +21,29 @@ Copyright (c) 2025 Ali Emad Elsamanoudy
 
 ## Requirements
 
-## Imports
+- Have a Google Account & Google Drive
+
+
+
+-Have enough storage in Google Drive (at least 2–3 GB free).
+
+
+## Instructions
+
+-Open Google Colab
+
+-Create a new notebook
+
+-Mount Google Drive
+
+Run the following to link your Drive with Colab:
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
+```
+## Imports
+```python
+
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import numpy as np
@@ -109,3 +129,10 @@ model.fit(batch_generator(train_ds, batch_size),
 model.save("/content/drive/Mydrive/mykeras.h5")
 print("[INFO] Model saved as mykeras.h5")
 ```
+
+
+## Use case
+
+-I used this code with [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md)
+ 
+
