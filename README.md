@@ -30,11 +30,11 @@ Copyright (c) 2025 Ali Emad Elsamanoudy
 
 ## Instructions
 
--Open Google Colab
+- Open Google Colab
 
--Create a new notebook
+- Create a new notebook
 
--Mount Google Drive
+- Mount Google Drive
 
 Run the following to link your Drive with Colab:
 ```python
