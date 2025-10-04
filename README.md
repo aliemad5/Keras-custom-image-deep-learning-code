@@ -19,12 +19,7 @@ Copyright (c) 2025 Ali Emad Elsamanoudy
 ---
 
 ## Requirements
-All dependencies for this project are listed in [Requirements.txt](Requirements.txt).  
-To install them, run the following command in your terminal:
 
-```bash
-pip install -r Requirements.txt
-```
 ## Imports
 ```python
 from google.colab import drive
