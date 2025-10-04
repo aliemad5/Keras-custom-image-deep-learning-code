@@ -133,6 +133,6 @@ print("[INFO] Model saved as mykeras.h5")
 
 ## Use case
 
--I used this code with [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md)
+- I used this code with [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-Keras-object-detection-model/blob/main/README.md)
  
 
