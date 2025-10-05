@@ -8,6 +8,7 @@ Used for [YOLO + Keras Object Detection Model](https://github.com/aliemad5/YOLO-
 **Dataset:** Open Images V4 300k
 
 **Author:** Ali Emad Elsamanoudy  
+
 **Email:** ali.elsamanoudy623@gmail.com  
 
 ---
@@ -67,7 +68,7 @@ num_classes = info.features["label"].num_classes
 
 
 
-def batch_generator(ds, batch_size=64):
+def batch_gen(ds, batchsize=64):
     x_batch, y_batch = [], []
     for img, label in tfds.as_numpy(ds):
         img = tf.image.resize(img, [300,300]).numpy() / 255.0
@@ -83,10 +84,6 @@ def batch_generator(ds, batch_size=64):
     if x_batch:
         yield np.array(x_batch, dtype="float32"), np.array(y_batch, dtype="int32")
 
-
-
-
-
 ```
 ## Build Model
 ```python
@@ -98,6 +95,7 @@ model = Sequential([
     MaxPooling2D(pool_size=(2, 2)),
 
     Flatten(),
+
     Dense(128, activation="relu"),
     Dense(num_classes, activation="softmax")
 ])
@@ -112,10 +110,9 @@ model.compile(optimizer="adam",
 
 ```python
 
+batchsize = 64
 
-batch_size = 64
-
-model.fit(batch_generator(train_ds, batch_size),
+model.fit(batch_gen(train_ds, batchsize),
           epochs=15)
 
 
@@ -127,7 +124,7 @@ model.fit(batch_generator(train_ds, batch_size),
 
 ```python
 model.save("/content/drive/Mydrive/mykeras.h5")
-print("[INFO] Model saved as mykeras.h5")
+
 ```
 
 
