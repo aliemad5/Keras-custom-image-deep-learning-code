@@ -57,29 +57,23 @@ from keras.losses import SparseCategoricalCrossentropy
 Note: This is a stripped down version of Open Images V4 and uses 30% of training data.
 ```python
 
-dataset, info = tfds.load("open_images_v4/300k", with_info=True,spit="train[:30%]",as_supervised=True)
+dataset, info = tfds.load("open_images_v4/300k", with_info=True,split="train[:30%]",as_supervised=True)
 train_ds = dataset["train"]
 
 
 ```
 ## Normalize The Data
 ```python
+batch_size=64
 num_classes = info.features["label"].num_classes
 
 
+def preprocess(img, label):
+    img = tf.image.resize(img, [300, 300])
+    img = tf.cast(img, tf.float32) / 255.0
+    return img, label
 
-def batch_gen(ds, batchsize=64):
-    x_batch, y_batch = [], []
-    for img, label in tfds.as_numpy(ds):
-        tf.cast(img,tf.float32) / 255.0
-        x_batch.append(img)
-        y_batch.append(label)
-
-
-
-    
-    if x_batch:
-        yield np.array(x_batch, dtype="float32"), np.array(y_batch, dtype="int32")
+train_ds= train_ds.map(preprocess,num_parallel_calls=tf.data.AUTOTUNE).cache().shuffle(1000).batch(batch_size).prefetch(tf.data.AUTOTUNE)    
 
 ```
 ## Build Model
@@ -107,10 +101,9 @@ model.compile(optimizer="adam",
 
 ```python
 
-batchsize = 64
 
-model.fit(batch_gen(train_ds, batchsize),
-          epochs=15)
+
+model.fit(train_ds,epochs=15)
 
 
 
