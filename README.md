@@ -54,7 +54,7 @@ from keras.losses import SparseCategoricalCrossentropy
 ```
 
 ## Load Dataset (Open Images V4)
-
+Note: This is a stripped down version of Open Images V4 and uses 30% of training data.
 ```python
 
 dataset, info = tfds.load("open_images_v4/300k", with_info=True,spit="train[:30%]",as_supervised=True)
