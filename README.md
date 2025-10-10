@@ -57,7 +57,7 @@ from keras.losses import SparseCategoricalCrossentropy
 
 ```python
 
-dataset, info = tfds.load("open_images_v4/300k", with_info=True, as_supervised=True)
+dataset, info = tfds.load("open_images_v4/300k", with_info=True,spit="train[:30%]",as_supervised=True)
 train_ds = dataset["train"]
 
 
@@ -71,14 +71,11 @@ num_classes = info.features["label"].num_classes
 def batch_gen(ds, batchsize=64):
     x_batch, y_batch = [], []
     for img, label in tfds.as_numpy(ds):
-        img = tf.image.resize(img, [300,300]).numpy() / 255.0
+        tf.cast(img,tf.float32) / 255.0
         x_batch.append(img)
         y_batch.append(label)
 
-        
-        if len(x_batch) == batch_size:
-            yield np.array(x_batch, dtype="float32"), np.array(y_batch, dtype="int32")
-            x_batch, y_batch = [], []
+
 
     
     if x_batch:
